@@ -217,29 +217,43 @@ if((*clubes)[i].codigoClube==codigoClubeTirar){
   printf("Codigo do clube nao encontrado na base de dados!");
 }
 }
-void removerCompeticao(CadastroCompeticoes **competicoes, int *tamanhoCompeticoes, int codigoCompeticaoTirar) {
-    int encontrado = 0;
-    
-    printf("Vamos remover os dados sobre sua competicao\n");
+void removerCompeticao(CadastroCompeticoes **competicoes, int *tamanhoCompeticoes) {
+    if (*tamanhoCompeticoes == 0) {
+        printf("Nao ha competicoes cadastradas para remover.\n");
+        return;
+    }
+
+    int codigoCompeticaoTirar;
     printf("Digite o codigo da competicao: ");
     scanf("%d", &codigoCompeticaoTirar);
+
+    int encontrado = 0;
+    int index = -1;
 
     for (int i = 0; i < *tamanhoCompeticoes; i++) {
         if ((*competicoes)[i].codigoCompeticao == codigoCompeticaoTirar) {
             encontrado = 1;
-
-            // Analogamente a remoção de clubes, dando um shift em todos os elementos após o removido
-            for (int j = i; j < tamanhoCompeticoes - 1; j++) {
-                competicoes[j] = competicoes[j + 1];
-            }
-        
-  *competicoes=(CadastroCompeticoes *)realloc(*competicoes,(*tamanhoCompeticoes-1)*sizeof(CadastroCompeticoes)); 
-            tamanhoCompeticoes--;
-            printf("Competição removida!\n");
-            return;
+            index = i;
+            break;
         }
     }
+
     if (!encontrado) {
         printf("Codigo da competicao nao encontrado na base de dados!\n");
+        return;
     }
+
+    // Liberar memória dos clubes participantes da competição removida
+    free((*competicoes)[index].clubesParticipantes);
+
+    // Remover competição do array deslocando os elementos para trás
+    for (int i = index; i < *tamanhoCompeticoes - 1; i++) {
+        (*competicoes)[i] = (*competicoes)[i + 1];
+    }
+
+    // Realocar memória
+    *competicoes = (CadastroCompeticoes *)realloc(*competicoes, (*tamanhoCompeticoes - 1) * sizeof(CadastroCompeticoes));
+    (*tamanhoCompeticoes)--;
+
+    printf("Competição removida com sucesso!\n");
 }
