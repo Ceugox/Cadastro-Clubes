@@ -208,7 +208,8 @@ if((*clubes)[i].codigoClube==codigoClubeTirar){
  for(j=i;j<*tamanhoClube-1;j++){
 (*clubes)[j]=(*clubes)[j+1];
 }
-  *clubes=(CadastroClube *)realloc(*clubes,(*tamanhoClube-1)*sizeof(CadastroClube)); 
+  *clubes=(CadastroClube *)realloc(*clubes,(*tamanhoClube-1)*sizeof(CadastroClube));
+    (*tamanhoClube)--;
  printf("Clube removido!/n");
  return;
 }
@@ -216,34 +217,29 @@ if((*clubes)[i].codigoClube==codigoClubeTirar){
   printf("Codigo do clube nao encontrado na base de dados!");
 }
 }
-}
-void removerCompeticao (CadastroCompeticoes *competicoes, int tamanhoCompeticoes, int codigoCompeticaoTirar ){
+void removerCompeticao(CadastroCompeticoes **competicoes, int *tamanhoCompeticoes, int codigoCompeticaoTirar) {
+    int encontrado = 0;
+    
+    printf("Vamos remover os dados sobre sua competicao\n");
+    printf("Digite o codigo da competicao: ");
+    scanf("%d", &codigoCompeticaoTirar);
 
-FILE *fileRelatorio=fopen("relatorio_temporada.txt","w");
+    for (int i = 0; i < *tamanhoCompeticoes; i++) {
+        if ((*competicoes)[i].codigoCompeticao == codigoCompeticaoTirar) {
+            encontrado = 1;
 
-if(fileRelatorio==NULL){
-    printf("ERRO AO ABRIR O ARQUIVO!!!");
-    return;
-}
-printf("Vamos remover os dados sobre sua competicao");
-printf("Digite o codigo da competicao:");
-scanf("%d",&codigoCompeticaoTirar);
-
-for(i=0;i<competicoes.qtdClubes;i++){
-    do{
-
-    if(codigoCompeticaoTirar==competicoes.codigoCompeticao)
-
-
-
+            // Analogamente a remoção de clubes, dando um shift em todos os elementos após o removido
+            for (int j = i; j < tamanhoCompeticoes - 1; j++) {
+                competicoes[j] = competicoes[j + 1];
+            }
+        
+  *competicoes=(CadastroCompeticoes *)realloc(*competicoes,(*tamanhoCompeticoes-1)*sizeof(CadastroCompeticoes)); 
+            tamanhoCompeticoes--;
+            printf("Competição removida!\n");
+            return;
+        }
     }
-
-
+    if (!encontrado) {
+        printf("Codigo da competicao nao encontrado na base de dados!\n");
+    }
 }
-
-
-
-
-
-}
-
