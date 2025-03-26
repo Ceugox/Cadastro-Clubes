@@ -1,22 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "BrasfootIME.h"
 
 
 
 
-    typedef struct TipoClubes {
-    int codigoClube;//5 dígitos
-    char nomeClube;
-    char maiorJogador;
-    int anoFund;
-    }Clube;
-    typedef struct TipoCompeticoes{
-    int codigoCompeticao;//4 dígitos
-    char nomeCompeticao;
-    char paisSede;
-    char artilheiro;
-    int qtdtimes;
-    } Competicoes;
+ 
 
      void cadastrarClube (Clube)
 {
@@ -53,7 +42,7 @@ if(!newCompeticoes){
 }
 
 else {
-    printf("-- PREENCHA OS CAMPOS DE CADASTRO DAS COMPETIÇÕES NAS QUAIS SEU CLUBE PARTICIPA --\n\n");
+    printf("-- PREENCHA OS CAMPOS DE CADASTRO DAS COMPETIÃ‡Ã•ES NAS QUAIS SEU CLUBE PARTICIPA --\n\n");
     do{
         printf("Digite o nome da competicao: ");
                 scanf(" %[^\n]", newCompeticoes->nomeCompeticao);
@@ -68,7 +57,7 @@ else {
                 printf("Digite o numero de times participantes:")
                 scanf(" %d" newCompeticoes->qtdtimes);
                 do{
-                printf("Deseja cadastrar mais uma competicao:s-Sim n-Não:");
+                printf("Deseja cadastrar mais uma competicao:s-Sim n-NÃ£o:");
                 scanf("%c",%resposta);
                 }while(resposta!='s' || resposta!='n');
 
