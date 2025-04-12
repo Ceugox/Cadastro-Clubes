@@ -3,7 +3,6 @@
 #include <string.h>
 #include "BrasfootIME.h"
 
-
 int main() {
     CadastroClube *clubes = NULL;
     CadastroCompeticoes *competicoes = NULL;
@@ -19,7 +18,9 @@ int main() {
         printf("3. Gerar Relatorio\n");
         printf("4. Salvar Dados\n");
         printf("5. Carregar Dados\n");
-        printf("6. Sair\n");
+        printf("6. Remover Clube\n");
+        printf("7. Remover Competicao\n");
+        printf("8. Sair\n");
         printf("Escolha uma opcao: ");
         opcao = lerInt();
 
@@ -40,14 +41,39 @@ int main() {
                 carregarDados(&clubes, &competicoes, &TamanhoClube, &TamanhoCompeticoes);
                 break;
             case 6:
+                if (TamanhoClube > 0) {
+                    printf("Digite o código do clube a remover: ");
+                    int codigoClube = lerInt();
+                    removerClube(&clubes, &competicoes, &TamanhoClube, &TamanhoCompeticoes, codigoClube);
+                } else {
+                    printf("Nenhum clube cadastrado.\n");
+                }
+                break;
+            case 7:
+                if (TamanhoCompeticoes > 0) {
+                    printf("Digite o código da competição a remover: ");
+                    int codigoComp = lerInt();
+                    removerCompeticao(&competicoes, &TamanhoCompeticoes, codigoComp);
+                } else {
+                    printf("Nenhuma competição cadastrada.\n");
+                }
+                break;
+            case 8:
+                printf("Saindo...\n");
                 break;
             default:
                 printf("Opcao invalida. Tente novamente.\n");
         }
-        printf("\nPressione Enter para continuar...");
-        getchar();
-    } while (opcao != 0);
+        if (opcao != 8) {
+            printf("\nPressione Enter para continuar...");
+            getchar();
+        }
+    } while (opcao != 8);
 
+    // Liberar memória
+    for (int i = 0; i < TamanhoCompeticoes; i++) {
+        free(competicoes[i].clubesParticipantes);
+    }
     free(clubes);
     free(competicoes);
 
