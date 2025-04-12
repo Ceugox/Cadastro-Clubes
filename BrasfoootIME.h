@@ -17,10 +17,10 @@ typedef struct TipoCompeticoes {
 } CadastroCompeticoes;
 
 typedef struct Temporadas {
-char Competition[50];
-char clube;
+    int ano; 
+    char competicao[50];
+    char clube[50]; 
 } Temporada;
-
 int lerInt();
 
 void cadastrarClube(CadastroClube **clubes, int *tamanhoClube, CadastroCompeticoes *competicoes, int tamanhoCompeticoes);
